@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Recognition</title>
+</head>
+<body>
+    <h1>Emotion Recognition</h1>
+    <form action="/predict_emotion" method="post" enctype="multipart/form-data">
+        <label for="audio">Upload Audio File:</label>
+        <input type="file" name="audio" onChange={onFileChange} />
+        <br>
+        <button type="submit">Predict Emotion</button>
+    </form>
+</body>
+</html>
