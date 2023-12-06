@@ -1,41 +1,39 @@
+// App.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ReactMic } from 'react-mic';
+import useRecorder from './useRecorder';
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const { startRecording, stopRecording, getBlob, recording } = useRecorder();
   const [audioBlob, setAudioBlob] = useState(null);
-  const [audioStream, setAudioStream] = useState(null);
-  const [record, setRecord] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [emotionResult, setEmotionResult] = useState('');
 
-  const onFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setRecord(false); // Stop recording if it's in progress
+  const onRecordStart = () => {
+    startRecording();
   };
 
-  const onRecordStart = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setAudioStream(stream);
-      setRecord(true);
-    } catch (error) {
-      console.error('Error accessing microphone:', error);
+  const onRecordStop = () => {
+    stopRecording();
+    const audioBlob = getBlob();
+    setAudioBlob(audioBlob);
+
+    // Create Object URL
+    if (audioBlob) {
+      const url = URL.createObjectURL(audioBlob);
+      const audioElement = new Audio(url);
+      audioElement.play();
     }
-  };
-
-  const onRecordStop = (recordedBlob) => {
-    setRecord(false);
-    setAudioBlob(recordedBlob.blob);
   };
 
   const onPredictClick = async () => {
     const formData = new FormData();
-    
-    if (audioBlob) {
-      formData.append('audio', audioBlob, 'recorded_audio.wav');
-    } else if (selectedFile) {
+
+    if (selectedFile) {
       formData.append('audio', selectedFile);
+    } else {
+      formData.append('audio', getBlob(), 'temp.wav');
     }
 
     try {
@@ -50,22 +48,22 @@ function App() {
     <div>
       <h1>Emotion Recognition App</h1>
       <div>
-        <label>
-          Choose File:
-          <input type="file" onChange={onFileChange} />
-        </label>
-      </div>
-      <div>
         <label>Record Audio:</label>
-        <button onClick={onRecordStart} disabled={record}>
+        <button onClick={onRecordStart}>
           Start
         </button>
-        <button onClick={onRecordStop} disabled={!record}>
+        <button onClick={onRecordStop}>
           Stop
         </button>
       </div>
-      {record && <ReactMic record={record} onStop={onRecordStop} />}
+      {<ReactMic record={recording} onStop={onRecordStop} />}
       {audioBlob && <p>Audio recorded successfully!</p>}
+      <div>
+        <label>
+          Choose File:
+          <input type="file" onChange={(event) => setSelectedFile(event.target.files[0])} />
+        </label>
+      </div>
       <button onClick={onPredictClick}>Predict Emotion</button>
       {emotionResult && <p>{emotionResult}</p>}
     </div>

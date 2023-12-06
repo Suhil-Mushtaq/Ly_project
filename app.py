@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from flask_cors import CORS 
+from flask_cors import CORS
 import os
 import librosa
 import numpy as np
@@ -24,12 +24,12 @@ def index():
 def predict_emotion():
     # Get the audio file from the request
     audio_file = request.files['audio']
-    
+
     # Specify the directory to save the audio file
     save_dir = 'static'
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
-    
+
     # Save the audio file locally
     audio_path = os.path.join(save_dir, 'new_audio.wav')
     audio_file.save(audio_path)
