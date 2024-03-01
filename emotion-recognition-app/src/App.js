@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { ReactMic } from 'react-mic';
 import useRecorder from './useRecorder';
+import './App.css'; // Import your CSS file for styling
 
 function App() {
   const { startRecording, stopRecording, getBlob, recording } = useRecorder();
@@ -44,29 +45,62 @@ function App() {
     }
   };
 
+  const reloadPage = () => {
+    window.location.reload();
+  };
+
   return (
     <div>
-      <h1>Emotion Recognition App</h1>
-      <div>
-        <label>Record Audio:</label>
-        <button onClick={onRecordStart}>
-          Start
-        </button>
-        <button onClick={onRecordStop}>
-          Stop
-        </button>
+      <div className="navbar">
+        <div className="logo-container">
+          <span className="logo" onClick={reloadPage}>
+            <span className="mood">MOOD</span><span className="sonic">SONIC</span>
+          </span>
+        </div>
+        <div className="navbar-options">
+          <a href="#">Feedback</a>
+          <a href="#">About</a>
+        </div>
       </div>
-      {<ReactMic record={recording} onStop={onRecordStop} />}
-      {audioBlob && <p>Audio recorded successfully!</p>}
-      <div>
-        <label>
-          Choose File:
-          <input type="file" onChange={(event) => setSelectedFile(event.target.files[0])} />
-        </label>
+      <div class="grid-container">
+      <div className="app-container">
+        <h1 className="record-audio-text">Record Audio:</h1>
+        <ReactMic record={recording} onStop={onRecordStop} />
+        <div className="button-container">
+          <button className="start-button" onClick={onRecordStart}>Start</button>
+          <button className="stop-button" onClick={onRecordStop}>Stop</button>
+        </div>
+        {audioBlob && <p>Audio recorded successfully!</p>}
+
+        <div className="or-text">
+          <p>OR</p>
+        </div>
+        <div className="input-container">
+          <label>
+            Choose File:
+
+            </label>
+            <div className="upload-file">
+            <input type="file" onChange={(event) => setSelectedFile(event.target.files[0])} />
+            </div>
+        </div>
+        <button className="predict-button" onClick={onPredictClick}>Predict Emotion</button>
+        {emotionResult && <div className="result"><p>{emotionResult}</p></div>}
       </div>
-      <button onClick={onPredictClick}>Predict Emotion</button>
-      {emotionResult && <p>{emotionResult}</p>}
+      
+    <div className="text-gen">
+    <body>
+    <div class="animated-text">
+        Can <span></span>
     </div>
+    </body>
+    </div>
+    
+    </div>
+    
+    </div>
+
+  
   );
 }
 

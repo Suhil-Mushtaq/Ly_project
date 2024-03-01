@@ -1,38 +1,269 @@
-.App {
-  text-align: center;
+/* App.css */
+
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('bg.jpg');
+  background-size: cover;
+  font-family: 'Nirmala UI', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.grid-container {
+  display: grid;
+  grid-template-columns: 60% 40%; /* 60% for app-container, 40% for text-gen *//* Adjust the gap between the two columns */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+/* Navbar styles */
+.navbar {
+  background-color: #f2f2f2;
+  overflow: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar-options {
+  float: right;
+}
+
+.navbar-options a {
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  color: black;
+}
+
+.navbar-options a:hover {
+  background-color: #cccaca;
+  color: black;
+}
+
+/* Logo styles */
+.logo {
+  font-family: 'Big John';
+  font-size: 27px; /* Adjust the font size as needed */
+  cursor: pointer;
+}
+
+.mood {
+  color: orange;
+}
+
+.sonic {
+  color: darkblue;
+}
+
+/* Main container styles */
+.app-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Left-align content horizontally */
+}
+
+
+/* Button styles */
+
+.button-container {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}  
+
+.start-button,
+.stop-button,
+.predict-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.start-button {
+  background-color: #4caf50; /* Green */
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.stop-button {
+  background-color: #f44336; /* Red */
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.predict-button {
+  background-color: #2196f3; /* Blue */
+  color: white;
+}
+
+/* Sonograph styles */
+.ReactMic {
+  width: 100%;
+}
+
+.ReactMic .visualizer {
+  background-color: transparent;
+}
+
+
+/* Record Audio text styles */
+.record-audio-text {
+  font-size: 24px; /* Increase the size of the "Record Audio" text */
+  margin-bottom: 10px;
+}
+
+/* Animated text container styles */
+.animation-container {
+  flex: 1;
+  background-color: black;
+  padding: 70px;
+  color: white;
+}
+
+.animated-text {
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+/* App.css */
+/* ... (previous styles) */
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.start-button,
+.stop-button,
+.predict-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.start-button {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+.stop-button {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.predict-button {
+  background-color: #2196f3; /* Blue */
+  color: white;
+}
+
+.or-text {
+  text-align: center;
+}
+
+.upload-file {
+  padding: 20px 0;
+}
+
+label {
+  font-size: 25px; /* You can adjust the font size as needed */
+}
+
+.predict-button {
+  padding: 15px 0 15px;
+  align-self: center;
+}
+
+.or-text{
+  padding-top: 20px;
+  font-size: large;
+  align-self: center;
+}
+/* Move the "Choose File" button below the text, add padding, and increase the size of the "Predict Emotion" button */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.result{
+  padding-top: 10px;
+  padding-bottom: -20px;
+  align-self: center;
+  font-size: x-large;
+  font-weight: 500;
+}
+
+/* Increase the size of the "Predict Emotion" button by 25% */
+.predict-button {
+  padding: 12.5px 25px; /* 25% increase */
+}
+.text-gen {
+  background-image: url('blackbox.jpg');
+
+  margin-top: 50px;
+  margin-right: 30px;
+  position: relative; /* Add relative positioning */
+}
+
+.animated-text {
+  font-size: 32px;
+  font-weight: 250;
+  min-width: 280px;
+  position: absolute; /* Add absolute positioning */
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%); /* Center the text horizontally and vertically */
+  z-index: 1; /* Ensure the text is in front of the background image */
+  white-space: pre-line; /* Preserve line breaks in the content */
+}
+
+.animated-text span::before {
+  content: "";
+  white-space: pre-line; /* Preserve line breaks in the content */
+  color: #42d47a;
+  animation: words 20s infinite;
+}
+
+@keyframes cursor {
+  to{
+      border-left: 2px solid #ff7f5000;
   }
 }
+
+@keyframes words {
+  0%,20%{
+      content: "analyze audio signals to identify emotional cues, enabling accurate emotion recognition in spoken language.";
+  }
+  21%,40%{
+      content: "distinguish various emotions such as joy, anger, sadness, and more, enhancing nuanced emotional understanding in conversations.";
+  }
+  41%,60%{
+      content: "adapt to different accents and languages, ensuring robust performance across diverse cultural and linguistic contexts.";
+  }
+  61%,80%{
+      content: "provide real-time emotion feedback, allowing users to gauge and respond to emotional dynamics during communication.";
+  }
+  81%,100%{
+      content: "integrate seamlessly with existing applications, offering a versatile tool for enhancing emotional intelligence in various digital platforms.";
+  }
+}
+
+@keyframes typing {
+  10%,15%,30%,35%,50%,55%,70%,75%,90%,95%{
+      width: 0;
+  }
+  5%,20%,25%,40%,45%,60%,65%,80%,85%{
+      width: calc(100% + 8px);
+  }
+}
+/* ... (rest of your styles) */
